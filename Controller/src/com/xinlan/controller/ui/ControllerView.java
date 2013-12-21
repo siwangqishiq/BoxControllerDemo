@@ -125,21 +125,21 @@ public class ControllerView extends View
         float verAy = y2-y1;
         float verBx = x3-x1,verBy = y3-y1;
         double angle = VectorUtil.calCosTwoVectorAngle(verAx, verAy, verBx, verBy);
-        int a = (int)((180f/Math.PI)*angle);
+        int a = (int)((180f/Math.PI)*angle);//弧度制转角度制
         if(y1<=y2){
             a=360-a;
         }
         if((a>=0 && a<45)|| (a>=315 && a<360)){//向右
-//            System.out.println("向右");
+            System.out.println("向右");
             return RIGHT;
         }else if(a>=45 && a<135){//向上
-//            System.out.println("向上");
+            System.out.println("向上");
             return UP;
         }else if(a>=135 && a<225){//向左
-//            System.out.println("向左");
+            System.out.println("向左");
             return LEFT;
         }else if(a>=225 && a<315){//向下
-//            System.out.println("向下");
+            System.out.println("向下");
             return DOWN;
         }
         return 0;

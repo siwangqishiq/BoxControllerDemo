@@ -7,4 +7,5 @@
 	<string name="btn1">按钮1</string>
 	<string name="btn2">按钮2</string>
 	<string name="btn3">按钮3</string>
+	<string name="connect">连接</string>
 </resources>

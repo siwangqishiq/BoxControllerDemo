@@ -4,6 +4,28 @@
     android:layout_height="match_parent" >
 
     <LinearLayout
+        android:id="@+id/head"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:padding="5dp" >
+
+        <EditText
+            android:id="@+id/hostip"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/connectBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/connect" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/foot"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -31,11 +53,13 @@
             android:layout_weight="1"
             android:text="@string/btn3" />
     </LinearLayout>
-    
-     <com.xinlan.controller.ui.ControllerView
-         android:background="#222222"
-         android:layout_above="@id/foot"
+
+    <com.xinlan.controller.ui.ControllerView
+        android:id="@+id/touchPad"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="fill_parent"
+        android:layout_above="@id/foot"
+        android:layout_below="@id/head"
+        android:background="#222222" />
 
 </RelativeLayout>
