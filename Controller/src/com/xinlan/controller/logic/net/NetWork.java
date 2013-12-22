@@ -12,40 +12,42 @@ import android.content.Context;
 public class NetWork {
 	private Context mContext;
 	private Queue<String> messageQueue;
-	private boolean isRun=true;
+	private boolean isRun = true;
 	private OutputStream outStream;
 	private Socket mSocket;
-	
-	public NetWork(Context context){
+
+	public NetWork(Context context) {
 		mContext = context;
 		messageQueue = new LinkedList<String>();
 	}
-	
-	public void connectServer(String serverHost){
+
+	public void connectServer(String serverHost) {
 		new MainServiceThread(serverHost).start();
 	}
-	
-	private final class MainServiceThread extends Thread{
+
+	private final class MainServiceThread extends Thread {
 		private String server;
-		public MainServiceThread(String serverHost){
+
+		public MainServiceThread(String serverHost) {
 			this.server = serverHost;
 		}
+
 		@Override
 		public void run() {
 			try {
-				mSocket = new Socket(server,8888);
-				int temp=0;
-				if(mSocket.isConnected()|| temp==0){
-					temp=1;
+				mSocket = new Socket(server, 8888);
+				int temp = 0;
+				if (mSocket.isConnected() || temp == 0) {
+					temp = 1;
 					System.out.println("与服务端建立连接....");
-					outStream= mSocket.getOutputStream();
-					while(isRun){
+					outStream = mSocket.getOutputStream();
+					while (isRun) {
 						String msg = messageQueue.poll();
-						if(msg!=null){
-							System.out.println("客户端发送数据包--->"+msg);
+						if (msg != null) {
+							System.out.println("客户端发送数据包--->" + msg);
 							outStream.write(msg.getBytes());
 						}
-					}//end while
+					}// end while
 				}
 			} catch (UnknownHostException e) {
 				e.printStackTrace();
@@ -53,22 +55,27 @@ public class NetWork {
 				e.printStackTrace();
 			}
 		}
-	}//end inner class
-	
-	public synchronized void sendMessage(String msg){
-		messageQueue.add(msg);
+	}// end inner class
+
+	/**
+	 * 向服务端发送消息
+	 * @param msg
+	 */
+	public synchronized void sendMessage(String msg) {
+		if (mSocket != null && !mSocket.isConnected())
+			messageQueue.add(msg);
 	}
-	
-	public void clear(){
+
+	public void clear() {
 		isRun = false;
-		if(outStream!=null){
+		if (outStream != null) {
 			try {
 				outStream.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		if(mSocket!=null){
+		if (mSocket != null) {
 			try {
 				mSocket.close();
 			} catch (IOException e) {
@@ -76,4 +83,4 @@ public class NetWork {
 			}
 		}
 	}
-}//end class
+}// end class
